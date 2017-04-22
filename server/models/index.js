@@ -9,9 +9,14 @@ module.exports = {
     }, // a function which produces all the messages
     post: function (body, response) {
       console.log(body, 'BODYIZZZLEEE')
-
       db.dbConnection.connect();
-      module.exports.users.post(body, (v) => v)
+      module.exports.users.get(body, (result) => {
+        console.log(result, 'THIS IS THE ID THAT WE ARE LOOKING FOR')
+      })
+
+      module.exports.users.post(body, (result) => {
+        console.log(result, 'RESULTIZZLE')
+      })
 
 
       // users.get(body.username, function(data) {
@@ -41,11 +46,13 @@ module.exports = {
       // db.dbConnection.end();
     } // a function which can be used to insert a message into the database
   },
-// connection.query('INSERT INTO posts SET ?', {title: 'test'}, function (
+// const book = 'harry potter'
+// const author = 'J. K. Rowling'
+// mysql.query('SELECT author FROM books WHERE name = ? AND author = ?', [book, author])
   users: {
-    get: function (username, callback) {
-      db.dbConnection.connect();
-      db.dbConnection.query(`SELECT id FROM users WHERE name = ${username}`, [], function(err, results) {
+    get: function (body, callback) {
+      var username = body.username;
+      db.dbConnection.query('SELECT id FROM users WHERE name = ?', [username], function(err, results) {
         if (err) {
           throw err;
         }
@@ -54,8 +61,7 @@ module.exports = {
     },
     post: function (body, callback) {
       db.dbConnection.query('INSERT INTO users SET ?', {name: body.username}, function(err, results) {
-        console.log(results, 'resultsizzle');
-        return results;
+        return callback(results);
       });
     }
   },
