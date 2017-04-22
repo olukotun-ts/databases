@@ -2,13 +2,13 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function () {
+    get: function (body, response) {
+      console.log(body, 'BODYIZZZLEEE')
       // db.dbConnection.connect();
       // db.dbConnection.query();
       // db.dbConnection.end();
     }, // a function which produces all the messages
     post: function (body, response) {
-      console.log(body, 'BODYIZZZLEEE')
       db.dbConnection.connect();
 
       module.exports.users.get(body, (result) => {
