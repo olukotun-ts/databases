@@ -4,8 +4,11 @@ module.exports = {
   messages: {
     get: function (body, response) {
       console.log(body, 'BODYIZZZLEEE')
-      // db.dbConnection.connect();
-      // db.dbConnection.query();
+      db.dbConnection.connect();
+
+      db.dbConnection.query('SELECT * FROM messages', [], function (err, results) {
+        response.end(JSON.stringify(results));
+      });
       // db.dbConnection.end();
     }, // a function which produces all the messages
     post: function (body, response) {
