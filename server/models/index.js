@@ -9,6 +9,14 @@ module.exports = {
     }, // a function which produces all the messages
     post: function (body, response) {
       console.log(body, 'BODYIZZZLEEE')
+
+      db.dbConnection.connect();
+      module.exports.users.post(body, (v) => v)
+
+
+      // users.get(body.username, function(data) {
+      //   console.log(data, 'DATAIZZZZLEE');
+      // });
       // On POST request:
         // if (users.get === true)
           // Add message to table.
@@ -33,22 +41,22 @@ module.exports = {
       // db.dbConnection.end();
     } // a function which can be used to insert a message into the database
   },
-
+// connection.query('INSERT INTO posts SET ?', {title: 'test'}, function (
   users: {
-    // Ditto as above.
-    get: function () {
-      // takes a user as an argument
-      // runs a SELECT query based on the username
-      // returns the id for that user
+    get: function (username, callback) {
+      db.dbConnection.connect();
+      db.dbConnection.query(`SELECT id FROM users WHERE name = ${username}`, [], function(err, results) {
+        if (err) {
+          throw err;
+        }
+        return callback(results);
+      });
     },
-    post: function () {
-      // Create var for user_id
-      // Check if username is already in table
-      // If yes, get user_id from table (need to insert into join table)
-      // If no,
-        // add username to table.
-        // get user_id.
-      // returns an id
+    post: function (body, callback) {
+      db.dbConnection.query('INSERT INTO users SET ?', {name: body.username}, function(err, results) {
+        console.log(results, 'resultsizzle');
+        return results;
+      });
     }
   },
 
