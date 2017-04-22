@@ -1,0 +1,171 @@
+body {
+    /*background: #eee;*/
+    background-image: url('https://media3.giphy.com/media/yUI3a7RwLhOFy/giphy.gif');
+    text-align: center;
+    padding: 0 25px;
+    font-family: arial, sans-serif;
+}
+
+#main, #hats {
+    width: 500px;
+    margin: auto;
+    text-align: left;
+    background: white;
+    padding: 50px 60px;
+    /*border: solid #ddd;*/
+    /*border-width: 0 1px 1px 1px;*/
+}
+
+#main {
+    position: relative;
+    height: 35em;
+    width: 50em;
+}
+
+#hats {
+    position: absolute;
+    border: solid black;
+    left: 0;
+    top: 10em;
+    height: 50%;
+    width: 49.93em;
+}
+
+#main h1 {
+    margin-top: 0;
+    font-size: 35px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+#main h1 span {
+    font-style:italic;
+}
+
+#main ul {
+    padding-left: 20px;
+}
+
+#main .error {
+    border: 1px solid red;
+    background: #FDEFF0;
+    padding: 20px;
+}
+
+#main .success {
+    margin-top: 25px;
+}
+
+#main .success code {
+    font-size: 12px;
+    color: green;
+    line-height: 13px;
+}
+
+form {
+    padding: 20px;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+form input[type=text] {
+    margin-right: 10px;
+    width: 70%;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.chat {
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
+.chat .username {
+    font-weight: 800;
+}
+
+.chat:hover {
+    background-color: #ddd;
+}
+
+.spinner {
+    float: right;
+    height: 46px;
+    margin-bottom: 5px;
+}
+
+.spinner img {
+    padding: 10px;
+}
+
+.friend {
+    color: #fff;
+    background-color: #0090da;
+}
+
+.postmessage {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.chathistory {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 75%;
+    width: 100%;
+    /*background-color: pink;*/
+    border: solid #f9f9f9;
+    overflow: scroll;
+}
+
+.userinput {
+    position: absolute;
+    bottom: 0;
+    right: 10em;
+    height: 23%;
+    width: 80%;
+    outline: none;
+    resize: none;
+    /*border: dashed #99e224;*/
+    font-size: 18px;
+    font-family: "Comic Sans MS";
+}
+
+.messagewrapper {
+    background-color: white;
+    padding: 1em;
+    height: 1px;
+}
+
+.username {
+    display: inline;
+    font-size: 23px;
+}
+.message {
+    display: inline;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+.friend {
+    font-style: underline bold;
+    color: #23ef00;
+}
+
+.changeName {
+    position: absolute;
+    top: 3em;
+    right: 0;
+}
+
+#rooms {
+    position: absolute;
+    top: 4.3em;
+    left: 18em;
+}
