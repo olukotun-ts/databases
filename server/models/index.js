@@ -10,75 +10,54 @@ module.exports = {
     post: function (body, response) {
       console.log(body, 'BODYIZZZLEEE')
       db.dbConnection.connect();
+
       module.exports.users.get(body, (result) => {
-        console.log(result, 'THIS IS THE ID THAT WE ARE LOOKING FOR')
-      })
+        var id = result.length > 0 ? result[0].id : undefined;
 
-      module.exports.users.post(body, (result) => {
-        console.log(result, 'RESULTIZZLE')
-      })
-
-
-      // users.get(body.username, function(data) {
-      //   console.log(data, 'DATAIZZZZLEE');
-      // });
-      // On POST request:
-        // if (users.get === true)
-          // Add message to table.
-          // Add user_id
-          // Add room_id
-          // Add timestamp
-        // else
-          // we call users.post
-          // retrieves user.id from call
-      // passes the user id into the message object
-      // inserts
-        // Add message to table.
-        // Add user_id
-        // Add room_id
-        // Add timestamp
-        // with the new id
-
-      // db.dbConnection.connect();
-
-      // db.dbConnection.query();
-
-      // db.dbConnection.end();
+        var message = body.message;
+        if (id) {
+          db.dbConnection.query('INSERT INTO messages SET ?', {user_id: id, message: message}, function(err, results) {
+              if (err) {
+                throw err;
+              }
+              response.end(JSON.stringify(results));
+          });
+        } else {
+          module.exports.users.post(body, (result) => {
+            module.exports.users.post(body, response);
+          });
+        }
+      });
     } // a function which can be used to insert a message into the database
   },
-// const book = 'harry potter'
-// const author = 'J. K. Rowling'
-// mysql.query('SELECT author FROM books WHERE name = ? AND author = ?', [book, author])
+
   users: {
     get: function (body, callback) {
       var username = body.username;
-      db.dbConnection.query('SELECT id FROM users WHERE name = ?', [username], function(err, results) {
-        if (err) {
-          throw err;
-        }
+      db.dbConnection.query('SELECT id FROM users WHERE name = ?', [username], (err, results) => {
         return callback(results);
       });
     },
     post: function (body, callback) {
-      db.dbConnection.query('INSERT INTO users SET ?', {name: body.username}, function(err, results) {
+      var username = body.username
+      db.dbConnection.query('INSERT INTO users SET ?', {name: username}, (err, results) => {
         return callback(results);
       });
     }
   },
 
   rooms: {
-    // Ditto as above.
-    get: function () {
-      // takes a roomname as an argument
-        // runs a select query based on the roomname
-        // returns the roomname if one exists otherwise it returns undefined
+    get: function (body, callback) {
+      var roomname = body.roomname;
+      db.dbConnection.query('SELECT id FROM rooms WHERE name = ?', [roomname], (err, results) => {
+          return callback(results);
+      })
     },
-    post: function () {
-      // Check if roomname is already in table
-      // If yes, get room_id (need to insert into join table).
-      // If no,
-        // add roomname to table.
-        // get room_id.
+    post: function (body, callback) {
+      var roomname = body.roomname;
+      db.dbConnection.query('INSERT INTO rooms SET ?', {name: roomname}, (err, results) => {
+        return callback(results);
+      });
     }
   }
 };
